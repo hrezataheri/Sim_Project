@@ -28,6 +28,7 @@ public class FundamentalManager {
         Event e = events.poll();
         if (e != null){
             time = e.invocationTime;
+//            System.out.println(time);
             simEntities.forEach((k) -> k.setTime());
             e.invokeEvent();
         }
