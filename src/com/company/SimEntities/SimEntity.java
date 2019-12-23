@@ -11,6 +11,7 @@ public class SimEntity {
         this.fundamentalManager = fundamentalManager;
         this.fundamentalManager.simEntities.add(this);
     }
+
     public SimEntity(){
 
     }

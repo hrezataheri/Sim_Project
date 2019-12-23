@@ -79,6 +79,7 @@ public class AssignmentServer extends SimEntity {
         int x = 0;
         double sum = 0;
         Random r = new Random();
+
         while(sum < c){
             sum += -Math.log(r.nextDouble());
             x++;
