@@ -37,7 +37,8 @@ public class FundamentalManager {
 
     public void workLeftTheSystem(Work work){
         worksThatHaveLeftTheSystem.add(work);
-        numberOfFinishedWorks++;
+        if(work.hasFinishedWork)
+            numberOfFinishedWorks++;
     }
 
     public void registerEvent(Event event){

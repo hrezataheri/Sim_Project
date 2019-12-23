@@ -82,7 +82,7 @@ public class Main {
             AssignmentServer assignmentServer = new AssignmentServer(workArrivalRate,deadLineExpectedValue, assignmentRate,eachServerDescription,fundamentalManager);
 
 
-            while (fundamentalManager.numberOfFinishedWorks < 50000000) {
+            while (fundamentalManager.worksThatHaveLeftTheSystem.size() < 50000000) {
                 fundamentalManager.increaseTime();
 //            System.out.println(fundamentalManager.time);
             }
