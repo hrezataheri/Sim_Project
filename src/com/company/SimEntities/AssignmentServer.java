@@ -21,7 +21,7 @@ public class AssignmentServer extends SimEntity {
 
 
 
-    public AssignmentServer(double serviceRate, double workArrivalRate, double workDeadlineExpectedValue, String[] descriptionsList, FundamentalManager fundamentalManager) {
+    public AssignmentServer( double workArrivalRate, double workDeadlineExpectedValue,double serviceRate, String[] descriptionsList, FundamentalManager fundamentalManager) {
         super(fundamentalManager);
 
         this.workArrivalRate = workArrivalRate;
