@@ -32,7 +32,7 @@ public class Core extends SimEntity{
     public void finishWork(){
 
         workThatIsGettingService.hasFinishedWork = true;
-        workThatIsGettingService.isStillInSystem = false;
+        workThatIsGettingService.isStillInSystem = false ;
         workThatIsGettingService.timeServiceEnd = systemTime;
         fundamentalManager.workLeftTheSystem(workThatIsGettingService);
 
