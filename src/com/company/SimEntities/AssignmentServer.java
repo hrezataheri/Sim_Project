@@ -4,6 +4,7 @@ import com.company.Event;
 import com.company.FundamentalManager;
 import com.company.Comparators.ServerComparator;
 import com.company.Comparators.WorkComparator;
+import com.company.Miscellaneous.StatisticalValue;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,15 +33,14 @@ public class AssignmentServer extends SimEntity {
 
         servers = new PriorityQueue<>(new ServerComparator());
 
-
-
         for (int i = 0; i < descriptionsList.length; i++) {
             servers.add(new Server(descriptionsList[i], this.fundamentalManager));
         }
 
+        fundamentalManager.setAssignmentServer(this);
+
         createEvent_InsertWorkIntoQueue(0);
     }
-
 
     public void insertWorkIntoQueue() {
         Work w = new Work(workDeadlineExpectedValue, atomicInteger.getAndIncrement(),this ,fundamentalManager);
@@ -163,6 +163,7 @@ public class AssignmentServer extends SimEntity {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void tick() {

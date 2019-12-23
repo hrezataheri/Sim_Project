@@ -36,6 +36,13 @@ public class Work extends SimEntity{
         this.workType = (r.nextDouble() < 0.1) ? Work_Type.TYPE_ONE : Work_Type.TYPE_TWO;
 
         this.deadline = fundamentalManager.time - deadlineExpectedValue*Math.log(r.nextDouble());
+
+        this.timeEnteredAssignmentServerQueue = -1;
+        this.timeAssignmentServiceBegin = -1;
+        this.timeEnteredServerQueue = -1;
+        this.timeServiceBegin = -1;
+        this.timeServiceEnd = -1;
+
         this.number = number;
         this.isStillInSystem = true;
         this.hasFinishedWork = false;
@@ -53,8 +60,7 @@ public class Work extends SimEntity{
             return;
         else {
 
-            this.isStillInSystem = false;
-            fundamentalManager.workLeftTheSystem(this);
+
 
             if (servicingServer != null)
                 servicingServer.queue.remove(this);
@@ -64,6 +70,9 @@ public class Work extends SimEntity{
                 assignmentServer.createEvent_SendWorkFromQueueToServers(q);
 
             }
+
+            this.isStillInSystem = false;
+            fundamentalManager.workLeftTheSystem(this);
 
         }
 
