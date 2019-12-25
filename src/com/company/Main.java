@@ -14,7 +14,7 @@ public class Main {
 
         try {
             BufferedReader inputReader;
-            inputReader = new BufferedReader(new FileReader("C:\\Users\\Reza Taheri\\IdeaProjects\\Sim_Project\\src\\com\\company\\SystemDescription.txt"));
+            inputReader = new BufferedReader(new FileReader("SystemDescription.txt"));
             int serverNumber;
             int workArrivalRate;
             int deadLineExpectedValue;
@@ -31,14 +31,45 @@ public class Main {
 //                System.out.println(eachServerDescription[i]);
             }
 
-            FundamentalManager fundamentalManager = new FundamentalManager();
-            AssignmentServer assignmentServer = new AssignmentServer(workArrivalRate,deadLineExpectedValue, assignmentRate,eachServerDescription,fundamentalManager);
+            inputReader.close();
+
+            FundamentalManager fundamentalManager = new FundamentalManager(workArrivalRate,deadLineExpectedValue, assignmentRate,eachServerDescription);
 
 
-            while (fundamentalManager.worksThatHaveLeftTheSystem.size() < 50000000) {
+            int numberOfWorksRequired = -1;
+            while ((fundamentalManager.worksThatHaveLeftTheSystem.size() < 50000000) && (numberOfWorksRequired < 0)) {
+                numberOfWorksRequired = fundamentalManager.checkAccuracyOfAllVariables();
                 fundamentalManager.increaseTime();
 //            System.out.println(fundamentalManager.time);
             }
+
+            BufferedWriter outputWriter = new BufferedWriter(new FileWriter("Results.txt"));
+            outputWriter.write("Average Time Spent In The System :" + String.valueOf(fundamentalManager.timeSpentInSystem.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Average Time Spent In The System _ Type One :" + String.valueOf(fundamentalManager.timeSpentInSystem_TYPE_ONE.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Average Time Spent In The System _ Type Two :" + String.valueOf(fundamentalManager.timeSpentInSystem_TYPE_TWO.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Average Time Spent In The Queue :" + String.valueOf(fundamentalManager.timeSpentInQueue.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Average Time Spent In The Queue _ Type One :" + String.valueOf(fundamentalManager.timeSpentInQueue_TYPE_ONE.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Average Time Spent In The Queue _ Type Two :" + String.valueOf(fundamentalManager.timeSpentInQueue_TYPE_TWO.valueMean));
+            outputWriter.newLine();
+            outputWriter.write("Number Of Expired Works :" + String.valueOf(fundamentalManager.numberOfExpiredWorks.valueSum));
+            outputWriter.newLine();
+            outputWriter.write("Number Of Expired Works _ Type One :" + String.valueOf(fundamentalManager.numberOfExpiredWorks_TYPE_ONE.valueSum));
+            outputWriter.newLine();
+            outputWriter.write("Number Of Expired Works _ Type Two :" + String.valueOf(fundamentalManager.numberOfExpiredWorks_TYPE_TWO.valueSum));
+            outputWriter.newLine();
+            for (int i = 0; i < fundamentalManager.serversQueueLength.length; i++) {
+                outputWriter.write("Average Queue Length For Server " + String.valueOf(i) + " : " + String.valueOf(fundamentalManager.serversQueueLength[i].valueMean));
+                outputWriter.newLine();
+            }
+            outputWriter.write("Average Queue Length For Assignment Server : " + String.valueOf(fundamentalManager.assignmentServerQueueLength.valueMean));
+            outputWriter.newLine();
+
+            outputWriter.close();
 
 
         } catch (FileNotFoundException e) {

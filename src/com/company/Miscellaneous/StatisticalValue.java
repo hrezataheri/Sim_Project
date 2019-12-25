@@ -13,6 +13,12 @@ public class StatisticalValue {
 
     public boolean hasMetDesiredAccuracy;
 
+    public StatisticalValue(){
+        valueAccuracy = Double.MAX_VALUE;
+        hasMetDesiredAccuracy = false;
+
+    }
+
     public void updateSums(double newRecord){
 
         valueRecordNumber++;
@@ -40,5 +46,6 @@ public class StatisticalValue {
         hasMetDesiredAccuracy = valueAccuracy <= 0.05;
         return hasMetDesiredAccuracy;
     }
+
 
 }

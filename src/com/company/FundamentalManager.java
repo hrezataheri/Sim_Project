@@ -36,19 +36,29 @@ public class FundamentalManager {
     StatisticalValue numberOfExpiredWorks_TYPE_TWO = new StatisticalValue();
 
     StatisticalValue_ServerQueueLength[] serversQueueLength;
+    StatisticalValue assignmentServerQueueLength = new StatisticalValue();
 
 
-    public FundamentalManager(){
+    public FundamentalManager(double workArrivalRate, double deadLineExpectedValue, double assignmentRate, String[] eachServerDescription){
         simEntities = new ArrayList<>();
         events = new PriorityQueue<>(new EventComparator());
         worksThatHaveLeftTheSystem = new ArrayList<>();
+        assignmentServer = new AssignmentServer(workArrivalRate,deadLineExpectedValue, assignmentRate,eachServerDescription,this);
+
+
+
+        serversQueueLength = new StatisticalValue_ServerQueueLength[assignmentServer.servers.size()];
+        Iterator<Server> serverIterator = assignmentServer.servers.iterator();
+        for (int i = 0; i < serversQueueLength.length; i++) {
+            serversQueueLength[i] = new StatisticalValue_ServerQueueLength(serverIterator.next());
+        }
     }
 
     public void increaseTime(){
         Event e = events.poll();
         if (e != null){
             time = e.invocationTime;
-//            System.out.println(time);
+//            System.out.println(timeSpentInQueue_TYPE_ONE.valueAccuracy);
             simEntities.forEach((k) -> k.setTime());
             e.invokeEvent();
         }
@@ -56,9 +66,44 @@ public class FundamentalManager {
     }
 
     public void workLeftTheSystem(Work work){
+
         worksThatHaveLeftTheSystem.add(work);
 
+        if (worksThatHaveLeftTheSystem.size() < 5000)
+            return;
+
         double timeSpentInSystem = time - work.timeEnteredAssignmentServerQueue;
+        this.timeSpentInSystem.update(timeSpentInSystem);
+        if (work.workType == Work_Type.TYPE_ONE)
+            this.timeSpentInSystem_TYPE_ONE.update(timeSpentInSystem);
+        else
+            this.timeSpentInSystem_TYPE_TWO.update(timeSpentInSystem);
+
+
+
+        double timeSpentInQueue = (work.timeServiceBegin > 0) ? (work.timeServiceBegin - work.timeEnteredAssignmentServerQueue)
+                : (time - work.timeEnteredAssignmentServerQueue);
+        this.timeSpentInQueue.update(timeSpentInQueue);
+        if(work.workType == Work_Type.TYPE_ONE)
+            this.timeSpentInQueue_TYPE_ONE.update(timeSpentInQueue);
+        else
+            this.timeSpentInQueue_TYPE_TWO.update(timeSpentInQueue);
+
+
+        if (!work.hasFinishedWork) {
+            numberOfExpiredWorks.update(1);
+            if(work.workType == Work_Type.TYPE_ONE)
+                numberOfExpiredWorks_TYPE_ONE.update(1);
+            else
+                numberOfExpiredWorks_TYPE_TWO.update(1);
+        }
+
+        for (int i = 0; i < serversQueueLength.length; i++) {
+            serversQueueLength[i].update(-1);
+        }
+
+        assignmentServerQueueLength.update(assignmentServer.queue.size());
+
 
 
     }
@@ -67,13 +112,45 @@ public class FundamentalManager {
         events.add(event);
     }
 
-    public void setAssignmentServer(AssignmentServer assignmentServer){
-        this.assignmentServer = assignmentServer;
-        serversQueueLength = new StatisticalValue_ServerQueueLength[assignmentServer.servers.size()];
-        Iterator<Server> serverIterator = assignmentServer.servers.iterator();
+    public int checkAccuracyOfAllVariables(){
+        if(!timeSpentInSystem.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInSystem.valueAccuracy);
+            return -1;}
+        if(!timeSpentInSystem_TYPE_ONE.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInQueue_TYPE_ONE.valueAccuracy);
+            return -1;}
+        if(!timeSpentInSystem_TYPE_TWO.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInSystem_TYPE_TWO.valueAccuracy);
+            return -1;}
+        if(!timeSpentInQueue.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInQueue.valueAccuracy);
+            return -1;}
+        if(!timeSpentInQueue_TYPE_ONE.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInQueue_TYPE_ONE.valueAccuracy);
+            return -1;}
+        if(!timeSpentInQueue_TYPE_TWO.hasMetDesiredAccuracy)
+            {
+                //system.out.println(timeSpentInQueue_TYPE_TWO.valueAccuracy);
+            return -1;}
         for (int i = 0; i < serversQueueLength.length; i++) {
-            Server s = serverIterator.next();
-            serversQueueLength[i].setServer(s);
+            if (!serversQueueLength[i].hasMetDesiredAccuracy)
+                {
+                    //system.out.println(serversQueueLength[i].valueAccuracy);
+                return -1;}
         }
+
+        if(!assignmentServerQueueLength.hasMetDesiredAccuracy)
+            {
+                //system.out.println(assignmentServerQueueLength.valueAccuracy);
+            return -1;}
+
+        return worksThatHaveLeftTheSystem.size();
+
     }
+
 }

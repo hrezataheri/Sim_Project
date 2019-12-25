@@ -37,7 +37,6 @@ public class AssignmentServer extends SimEntity {
             servers.add(new Server(descriptionsList[i], this.fundamentalManager));
         }
 
-        fundamentalManager.setAssignmentServer(this);
 
         createEvent_InsertWorkIntoQueue(0);
     }
