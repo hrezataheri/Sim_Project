@@ -1,13 +1,15 @@
-Average Time Spent In The System :1.0611362592054483
-Average Time Spent In The System _ Type One :1.087094604299108
-Average Time Spent In The System _ Type Two :1.0583812392080136
-Average Time Spent In The Queue :0.6043765712657877
-Average Time Spent In The Queue _ Type One :0.6612872470208204
-Average Time Spent In The Queue _ Type Two :0.5983365078793409
-Number Of Expired Works :7253.0
-Number Of Expired Works _ Type One :846.0
-Number Of Expired Works _ Type Two :6407.0
-Average Queue Length For Server 0 : 0.007019826730130466
-Average Queue Length For Server 1 : 0.001506694517686539
-Average Queue Length For Server 2 : 6.848611444029723E-5
-Average Queue Length For Assignment Server : 0.9822963394171832
+Average Time Spent In The System :1.0518697931376317
+Average Time Spent In The System _ Type One :1.0829422700947964
+Average Time Spent In The System _ Type Two :1.048412960261848
+Average Time Spent In The Queue :0.5952434402850278
+Average Time Spent In The Queue _ Type One :0.6521019764896003
+Average Time Spent In The Queue _ Type Two :0.5889178918747168
+Total Number Of Works That Left The System :33317
+Total Number Of Works That Entered The System :31793
+Number Of Expired Works :7048.0
+Number Of Expired Works _ Type One :818.0
+Number Of Expired Works _ Type Two :6230.0
+Average Queue Length For Server 0 : 0.006603573698707536
+Average Queue Length For Server 1 : 0.0018009746451020552
+Average Queue Length For Server 2 : 3.531322833533442E-5
+Average Queue Length For Assignment Server : 0.9711137792216964

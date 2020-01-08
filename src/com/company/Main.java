@@ -44,29 +44,33 @@ public class Main {
             }
 
             BufferedWriter outputWriter = new BufferedWriter(new FileWriter("Results.txt"));
-            outputWriter.write("Average Time Spent In The System :" + String.valueOf(fundamentalManager.timeSpentInSystem.valueMean));
+            outputWriter.write("Average Time Spent In The System :" + fundamentalManager.timeSpentInSystem.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Average Time Spent In The System _ Type One :" + String.valueOf(fundamentalManager.timeSpentInSystem_TYPE_ONE.valueMean));
+            outputWriter.write("Average Time Spent In The System _ Type One :" + fundamentalManager.timeSpentInSystem_TYPE_ONE.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Average Time Spent In The System _ Type Two :" + String.valueOf(fundamentalManager.timeSpentInSystem_TYPE_TWO.valueMean));
+            outputWriter.write("Average Time Spent In The System _ Type Two :" + fundamentalManager.timeSpentInSystem_TYPE_TWO.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Average Time Spent In The Queue :" + String.valueOf(fundamentalManager.timeSpentInQueue.valueMean));
+            outputWriter.write("Average Time Spent In The Queue :" + fundamentalManager.timeSpentInQueue.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Average Time Spent In The Queue _ Type One :" + String.valueOf(fundamentalManager.timeSpentInQueue_TYPE_ONE.valueMean));
+            outputWriter.write("Average Time Spent In The Queue _ Type One :" + fundamentalManager.timeSpentInQueue_TYPE_ONE.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Average Time Spent In The Queue _ Type Two :" + String.valueOf(fundamentalManager.timeSpentInQueue_TYPE_TWO.valueMean));
+            outputWriter.write("Average Time Spent In The Queue _ Type Two :" + fundamentalManager.timeSpentInQueue_TYPE_TWO.valueMean);
             outputWriter.newLine();
-            outputWriter.write("Number Of Expired Works :" + String.valueOf(fundamentalManager.numberOfExpiredWorks.valueSum));
+            outputWriter.write("Total Number Of Works That Left The System :" + fundamentalManager.worksThatHaveLeftTheSystem.size());
             outputWriter.newLine();
-            outputWriter.write("Number Of Expired Works _ Type One :" + String.valueOf(fundamentalManager.numberOfExpiredWorks_TYPE_ONE.valueSum));
+            outputWriter.write("Total Number Of Works That Entered The System :" + fundamentalManager.assignmentServer.atomicInteger.get());
             outputWriter.newLine();
-            outputWriter.write("Number Of Expired Works _ Type Two :" + String.valueOf(fundamentalManager.numberOfExpiredWorks_TYPE_TWO.valueSum));
+            outputWriter.write("Number Of Expired Works :" + fundamentalManager.numberOfExpiredWorks.valueSum);
+            outputWriter.newLine();
+            outputWriter.write("Number Of Expired Works _ Type One :" + fundamentalManager.numberOfExpiredWorks_TYPE_ONE.valueSum);
+            outputWriter.newLine();
+            outputWriter.write("Number Of Expired Works _ Type Two :" + fundamentalManager.numberOfExpiredWorks_TYPE_TWO.valueSum);
             outputWriter.newLine();
             for (int i = 0; i < fundamentalManager.serversQueueLength.length; i++) {
-                outputWriter.write("Average Queue Length For Server " + String.valueOf(i) + " : " + String.valueOf(fundamentalManager.serversQueueLength[i].valueMean));
+                outputWriter.write("Average Queue Length For Server " + i + " : " + fundamentalManager.serversQueueLength[i].valueMean);
                 outputWriter.newLine();
             }
-            outputWriter.write("Average Queue Length For Assignment Server : " + String.valueOf(fundamentalManager.assignmentServerQueueLength.valueMean));
+            outputWriter.write("Average Queue Length For Assignment Server : " + fundamentalManager.assignmentServerQueueLength.valueMean);
             outputWriter.newLine();
 
             outputWriter.close();
