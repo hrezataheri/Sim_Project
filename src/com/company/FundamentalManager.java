@@ -67,6 +67,9 @@ public class FundamentalManager {
 
     public void workLeftTheSystem(Work work){
 
+        if (worksThatHaveLeftTheSystem.contains(work))
+            return;
+
         worksThatHaveLeftTheSystem.add(work);
 
         if (worksThatHaveLeftTheSystem.size() < 5000)
