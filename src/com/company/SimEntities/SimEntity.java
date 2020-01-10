@@ -19,10 +19,6 @@ public class SimEntity {
 
     public void setTime(){
         this.systemTime = fundamentalManager.time;
-        this.tick();
     }
 
-    public void tick(){
-
-    }
 }

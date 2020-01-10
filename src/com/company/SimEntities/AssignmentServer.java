@@ -64,7 +64,7 @@ public class AssignmentServer extends SimEntity {
             queue.remove(w);
 
             refreshServerList();
-            selectServerWithMinimumQueueLength().insertWorkIntoQueue(w);;
+            selectServerWithMinimumQueueLength().insertWorkIntoQueue(w);
 
             Work q = queue.peek();
             createEvent_SendWorkFromQueueToServers(q);
@@ -163,9 +163,4 @@ public class AssignmentServer extends SimEntity {
         }
     }
 
-
-    @Override
-    public void tick() {
-
-    }
 }

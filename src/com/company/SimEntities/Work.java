@@ -56,8 +56,9 @@ public class Work extends SimEntity{
     public void leaveSystemBeforeBeginningService(){
 
 
-        if (servicingCore != null)
+        if (servicingCore != null) {
             return;
+        }
         else {
 
 
@@ -87,9 +88,4 @@ public class Work extends SimEntity{
         }
     }
 
-
-    @Override
-    public void tick() {
-
-    }
 }

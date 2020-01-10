@@ -57,9 +57,4 @@ public class Server extends SimEntity {
     }
 
 
-
-    @Override
-    public void tick() {
-
-    }
 }

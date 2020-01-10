@@ -71,8 +71,4 @@ public class Core extends SimEntity{
         return -(1/serviceRate)*Math.log(r.nextDouble());
     }
 
-    @Override
-    public void tick() {
-
-    }
 }
